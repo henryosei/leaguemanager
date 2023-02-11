@@ -16,7 +16,12 @@ class AuthenticationService
 
     public function authenticate(AuthenticateRequest $request)
     {
-
-
+        $credentials=["email"=>$request->email,"password"=>$request->password];
+        $authenticate=Auth::attempt($credentials);
+        if(!$authenticate){
+            return false;
+        }else{
+            return $authenticate;
+        }
     }
 }

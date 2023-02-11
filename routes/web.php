@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeagueController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect("/login");
-});
 
-Route::get("/login",[\App\Http\Controllers\AuthenticationController::class,"login"])->name("login");
-Route::post("/login",[\App\Http\Controllers\AuthenticationController::class,"authentication"]);
+Route::get("/login",[AuthenticationController::class,"login"])->name("login");
+Route::post("/login",[AuthenticationController::class,"authentication"]);
+
+Route::group(["middleware"=>["auth"]],function (){
+    Route::get("/",[DashboardController::class,"dashboard"]);
+    Route::group(["prefix"=>"/league"],function (){
+        Route::get("/schedule",[LeagueController::class,"schedule"]);
+        Route::get("/table",[LeagueController::class,"table"]);
+    });
+
+    Route::group(["prefix"=>"/administration"],function (){
+
+    });
+});

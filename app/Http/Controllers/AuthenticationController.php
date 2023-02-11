@@ -21,14 +21,16 @@ class AuthenticationController extends Controller
 
     public function login()
     {
-
+        return view("login");
     }
 
     public function authentication(AuthenticateRequest $request)
     {
-        return $request->validate() ?
-            $this->service->authenticate($request)? redirect(""): redirect()->back()->with(["message"=>"Invalid username or password"]):
-            );
 
+
+        if ($this->service->authenticate($request)) {
+            return redirect("/dashboard");
+        }
+        return redirect()->back()->with(["message" => "Invalid username or password"]);
     }
 }
