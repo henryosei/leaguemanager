@@ -27,7 +27,8 @@ Route::group(["middleware"=>["auth"]],function (){
         Route::get("/table",[LeagueController::class,"table"]);
     });
 
-    Route::group(["prefix"=>"/administration"],function (){
-
+    Route::group(["prefix"=>"/system"],function (){
+        Route::get("/users",[\App\Http\Controllers\UserController::class,"users"]);
+        Route::get("/teams",[\App\Http\Controllers\TeamController::class,"teams"]);
     });
 });
