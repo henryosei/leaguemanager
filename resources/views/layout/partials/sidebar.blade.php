@@ -67,7 +67,7 @@
                     <h6 class="collapse-header">System Settings:</h6>
                     <a class="collapse-item" href="/system/users">Users</a>
                     <a class="collapse-item" href="/system/teams">Teams</a>
-                    <a class="collapse-item" href="system/league">League</a>
+                    <a class="collapse-item" href="/system/league">League</a>
 
                 </div>
             </div>

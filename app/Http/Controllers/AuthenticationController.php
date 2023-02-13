@@ -29,7 +29,7 @@ class AuthenticationController extends Controller
 
 
         if ($this->service->authenticate($request)) {
-            return redirect("/dashboard");
+            return redirect("/");
         }
         return redirect()->back()->with(["message" => "Invalid username or password"]);
     }
