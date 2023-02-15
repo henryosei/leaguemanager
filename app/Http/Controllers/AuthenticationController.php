@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AuthenticateRequest;
 use App\Services\AuthenticationService;
 use Illuminate\Http\Request;
+use Auth;
 
 class AuthenticationController extends Controller
 {
@@ -32,5 +33,11 @@ class AuthenticationController extends Controller
             return redirect("/");
         }
         return redirect()->back()->with(["message" => "Invalid username or password"]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect("/login");
     }
 }

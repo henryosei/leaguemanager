@@ -22,6 +22,7 @@ Route::post("/login",[AuthenticationController::class,"authentication"]);
 
 Route::group(["middleware"=>["auth"]],function (){
     Route::get("/",[DashboardController::class,"dashboard"]);
+    Route::get("/logout",[AuthenticationController::class,"logout"]);
     Route::group(["prefix"=>"/league"],function (){
         Route::get("/schedule",[LeagueController::class,"schedule"]);
         Route::get("/table",[LeagueController::class,"table"]);
