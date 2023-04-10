@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class LeagueController extends Controller
@@ -15,4 +16,18 @@ class LeagueController extends Controller
     {
         return view("league.leaguetable");
     }
+
+
+    public function league()
+    {
+        return view("settings.league");
+    }
+
+    public function createLeague()
+    {
+        $teams=Team::all();
+        return view("settings.createleague");
+    }
+
+
 }

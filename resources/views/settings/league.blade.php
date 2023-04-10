@@ -5,12 +5,12 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">System User</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                    class="fas fa-download fa-sm text-white-50"></i> Create User</a>
+            <h1 class="h3 mb-0 text-gray-800">League</h1>
+            <a href="/system/league/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-teamspeak fa-sm text-white-50"></i> Create League</a>
         </div>
         <p class="mb-4">
-            </p>
+        </p>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -22,19 +22,17 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Full Name</th>
-                            <th>Role</th>
-                            <th>Email</th>
-                            <th>Last Login</th>
+                            <th>Season</th>
+                            <th>Total Teams</th>
+                            <th>Total Players</th>
                             <th>Created At</th>
+
                             <th>Action</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                        <tr>
 
-                        </tr>
 
                         </tbody>
                     </table>

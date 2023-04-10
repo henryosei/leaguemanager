@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
+            $table->integer("team_id");
+            $table->string("full_name");
+            $table->string("position");
+            $table->string("status");
             $table->timestamps();
         });
     }
