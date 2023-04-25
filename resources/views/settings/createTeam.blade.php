@@ -15,30 +15,31 @@
                     <h6 class="m-0 font-weight-bold text-primary">League Information</h6>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Team name</label>
-                            <input class="form-control" name="team_name"></div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            @csrf
-                            <label for="exampleFormControlSelect1">Captain</label>
-                            <input class="form-control" name="coach"></div>
-                    </div>
+                    <form method="post" action="" enctype="multipart/form-data">
                         <div class="col-md-12">
-                        <div class="form-group">
-                            @csrf
-                            <label for="exampleFormControlSelect1">Team Logo</label>
-                            <input class="form-control" required type="file" accept="image/jpeg" name="team_logo"></div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Team name</label>
+                                <input class="form-control" name="team_name"></div>
+                        </div>
 
-                            <input class="form-control btn btn-primary"   type="submit" ></div>
-                    </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @csrf
+                                <label for="exampleFormControlSelect1">Captain</label>
+                                <input class="form-control" name="coach"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                @csrf
+                                <label for="exampleFormControlSelect1">Team Logo</label>
+                                <input class="form-control" required type="file" accept="image/jpeg" name="team_logo">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+                                <input class="form-control btn btn-primary" type="submit"></div>
+                        </div>
                     </form>
 
 

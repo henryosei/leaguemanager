@@ -13,6 +13,7 @@ class Team extends Model
     protected $fillable = [
         'uuid',
         'team_name',
+        'team_logo',
         'coach_name'];
 
     protected static function boot()

@@ -6,7 +6,7 @@
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800">System User</h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+            <a href="/system/users/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                     class="fas fa-download fa-sm text-white-50"></i> Create User</a>
         </div>
         <p class="mb-4">
@@ -25,16 +25,35 @@
                             <th>Full Name</th>
                             <th>Role</th>
                             <th>Email</th>
-                            <th>Last Login</th>
+
                             <th>Created At</th>
                             <th>Action</th>
                         </tr>
                         </thead>
 
                         <tbody>
+                        @foreach($users as $u)
                         <tr>
+                            <td>{{$u->name}}</td>
+                            <td>@switch($u->user_role)
+                                    @case("A")
+                                        Admin
+                                    @break
+                                    @case("L")
+                                        League manager
+                                    @break
+                                    @case("U")
+                                        User
+                                    @break
 
-                        </tr>
+
+                            @endswitch
+                            </td>
+                            <td>{{$u->email}}</td>
+                            <td>{{$u->created_at}}</td>
+                            <td><a href="">Edit</a></td>
+                        @endforeach
+
 
                         </tbody>
                     </table>

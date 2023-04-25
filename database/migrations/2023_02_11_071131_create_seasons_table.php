@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('seasons', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
+            $table->integer("created_by");
+            $table->string("season_name");
+            $table->string("season_status")->default("Y");
             $table->timestamps();
         });
     }

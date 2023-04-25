@@ -38,6 +38,13 @@
 
                         </div>
                         <div class="col-md-12">
+                            <div class="form-group">
+                                @csrf
+                                <label for="exampleFormControlSelect1">Player Picture</label>
+                                <input class="form-control" required type="file" accept="image/jpeg" name="player_picture">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
                             <input class="form-control btn btn-primary" type="submit">
                         </div>
                     </form>

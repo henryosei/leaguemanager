@@ -30,13 +30,20 @@ Route::group(["middleware"=>["auth"]],function (){
 
     Route::group(["prefix"=>"/system"],function (){
         Route::get("/users",[\App\Http\Controllers\UserController::class,"users"]);
+        Route::get("/users/create",[\App\Http\Controllers\UserController::class,"createUser"]);
+        Route::post("/users/create",[\App\Http\Controllers\UserController::class,"postCreateUser"]);
+
         Route::get("/teams",[\App\Http\Controllers\TeamController::class,"teams"]);
         Route::get("/teams/detail/{id}",[\App\Http\Controllers\TeamController::class,"teamDetail"]);
         Route::get("/teams/player/create/{id}",[\App\Http\Controllers\TeamController::class,"createTeamPlayer"]);
         Route::post("/teams/player/create/{id}",[\App\Http\Controllers\TeamController::class,"postCreateTeamPlayer"]);
         Route::get("/teams/create",[\App\Http\Controllers\TeamController::class,"createTeam"]);
+        Route::get("/teams/player/{id}",[\App\Http\Controllers\TeamController::class,"playerStatsById"]);
         Route::post("/teams/create",[\App\Http\Controllers\TeamController::class,"postCreateTeam"]);
+
         Route::get("/league",[\App\Http\Controllers\LeagueController::class,"league"]);
         Route::get("/league/create",[\App\Http\Controllers\LeagueController::class,"createLeague"]);
+        Route::post("/league/create",[\App\Http\Controllers\LeagueController::class,"postCreateLeague"]);
+
     });
 });
