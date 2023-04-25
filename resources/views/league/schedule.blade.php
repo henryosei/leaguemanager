@@ -28,6 +28,15 @@
                         </thead>
 
                         <tbody>
+                        @foreach($schedules as $schedule)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$schedule->home_team}}</td>
+                            <td>{{$schedule->away_team}}</td>
+                            <td>{{$schedule->date_scheduled}}</td>
+                            <td><a href="/league/reschedule/{{$schedule->uuid}}" class="btn btn-outline-success btn-sm">Reschedule Match</a></td>
+                        <tr>
+                        @endforeach
 
 
                         </tbody>

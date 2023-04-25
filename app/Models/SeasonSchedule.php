@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
+use DB;
 
 class SeasonSchedule extends Model
 {
@@ -12,6 +13,12 @@ class SeasonSchedule extends Model
 
 
     protected $fillable = ["uuid", "season_id", "home_team_id", "away_team_id", "date_scheduled", "match_status"];
+
+    public static function reschedule(\Illuminate\Http\Request $request, $id)
+    {
+        DB::statement("update season_schedules set date_scheduled = ? where uuid = ?",
+            [date("Y-m-d",strtotime($request->rescheduled_date)),$id]);
+    }
 
     protected static function boot()
     {
@@ -25,6 +32,28 @@ class SeasonSchedule extends Model
     public static function generateSchedule($season_id, $home_team, $away_team, $date_scheduled)
     {
         self::create(["season_id" => $season_id, "home_team_id" => $home_team,
-            "away_team_id" => $away_team, "date_scheduled" => date("Y-m-d",strtotime($date_scheduled))]);
+            "away_team_id" => $away_team, "date_scheduled" => date("Y-m-d", strtotime($date_scheduled))]);
+    }
+
+    public static function leageSchedule()
+    {
+        return DB::table('season_schedules')
+            ->join('seasons', 'season_schedules.season_id', '=', 'seasons.id')
+            ->join('teams', 'season_schedules.home_team_id', '=', 'teams.id')
+            ->join('teams as t2', 'season_schedules.away_team_id', '=', 't2.id')
+            ->select('season_schedules.*', 'seasons.season_name', 'teams.team_name as home_team', 't2.team_name as away_team')
+            ->where('season_schedules.match_status', '=', 'PENDING')
+            ->get();
+    }
+
+    public static function leagueScheduleById($id)
+    {
+        return DB::table('season_schedules')
+            ->join('seasons', 'season_schedules.season_id', '=', 'seasons.id')
+            ->join('teams', 'season_schedules.home_team_id', '=', 'teams.id')
+            ->join('teams as t2', 'season_schedules.away_team_id', '=', 't2.id')
+            ->select('season_schedules.*', 'seasons.season_name', 'teams.team_name as home_team', 't2.team_name as away_team')
+            ->where('season_schedules.uuid', '=', $id)
+            ->get();
     }
 }

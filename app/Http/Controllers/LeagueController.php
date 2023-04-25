@@ -11,7 +11,10 @@ class LeagueController extends Controller
 {
     public function schedule()
     {
-        return view("league.schedule");
+        $schedule = SeasonSchedule::leageSchedule();
+
+
+        return view("league.schedule",["schedules"=>$schedule]);
     }
 
     public function table()
@@ -37,25 +40,47 @@ class LeagueController extends Controller
 
         $season = Season::createSeason($request);
         $arr = [];
+        $away=[];
 
         for ($i = 0; $i < count($team); $i++) {
             for ($j = 1; $j < count($team); $j++) {
-                if ($team[$i]->id != $team[$j]->id || $team[$j]->id != $team[$i]->id) {
-                    $arr[$i] = ($team[$i]->team_name . " vs " . $team[$j]->team_name);
+                if ($team[$i]->team_name != $team[$j]->team_name) {
+
+                    array_push($away, $team[$i]->team_name );
+                    if (array_search( $team[$j]->team_name, $away) !== false ){
+                        $arr[$i] = ($team[$i]->id . " vs " . $team[$j]->id);
+                         array_push($away, $team[$j]->team_name);
+                    }
+                }else{
+                    continue;
                 }
                 //SeasonSchedule::generateSchedule(1,$team[$i]->id,$team[$j]->id,$season->id);
 
             }
         }
-
         shuffle($arr);
-        dd($arr);
+
         for ($i = 0; $i < count($arr); $i++) {
 
             SeasonSchedule::generateSchedule(1, trim(explode("vs", $arr[$i])[0]), trim(explode("vs", $arr[$i])[1]),1231);
 
         }
-        return $request->season;
+        return redirect("/");
+    }
+
+    public function reschedule($id)
+    {
+        $schedule = SeasonSchedule::leagueScheduleById($id);
+
+        if($schedule != null){
+            return view("settings.reschedule",["schedule"=>$schedule[0]]);
+        }
+
+    }
+
+    public function postReschedule(Request $request,$id)
+    {
+        SeasonSchedule::reschedule($request,$id);
     }
 
 

@@ -25,6 +25,8 @@ Route::group(["middleware"=>["auth"]],function (){
     Route::get("/logout",[AuthenticationController::class,"logout"]);
     Route::group(["prefix"=>"/league"],function (){
         Route::get("/schedule",[LeagueController::class,"schedule"]);
+        Route::get("/reschedule/{id}",[LeagueController::class,"reschedule"]);
+        Route::post("/reschedule/{id}",[LeagueController::class,"postReschedule"]);
         Route::get("/table",[LeagueController::class,"table"]);
     });
 
