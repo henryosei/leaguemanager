@@ -23,7 +23,15 @@ class Season extends Model
 
     public static function createSeason(Request $request)
     {
-      return self::create(["season_name" => $request->season, "created_by" => auth()->id()]);
+        return self::create(["season_name" => $request->season, "created_by" => auth()->id()]);
+    }
+
+    public static function allSeasons()
+    {
+        DB::table("seasons as s")->
+        join("season_schedules as ss", "ss.season_id", "=", "s.id")
+            ->join("teams as t", "t.id", "=", "ss.team_id")
+            ->select("seasons.*", "users.name as created_by")->get();
     }
 
 }

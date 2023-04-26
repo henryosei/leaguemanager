@@ -17,7 +17,14 @@ class SeasonSchedule extends Model
     public static function reschedule(\Illuminate\Http\Request $request, $id)
     {
         DB::statement("update season_schedules set date_scheduled = ? where uuid = ?",
-            [date("Y-m-d",strtotime($request->rescheduled_date)),$id]);
+            [date("Y-m-d", strtotime($request->rescheduled_date)), $id]);
+    }
+
+    public static function matchDetails($id)
+    {
+        DB::table("season_schedule as s")
+            ->join("teams as t1","t1.id","=","s.home_team_id")
+            ->join("teams as t2","t2.id","=","s.away_team_id");
     }
 
     protected static function boot()
@@ -31,8 +38,10 @@ class SeasonSchedule extends Model
 
     public static function generateSchedule($season_id, $home_team, $away_team, $date_scheduled)
     {
+
         self::create(["season_id" => $season_id, "home_team_id" => $home_team,
-            "away_team_id" => $away_team, "date_scheduled" => date("Y-m-d", strtotime($date_scheduled))]);
+            "away_team_id" => $away_team, "date_scheduled" => date("Y-m-d", strtotime($date_scheduled."+ 7 day"))]);
+
     }
 
     public static function leageSchedule()

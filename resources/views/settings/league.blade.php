@@ -25,13 +25,22 @@
                             <th>Season</th>
                             <th>Total Teams</th>
                             <th>Total Players</th>
-                            <th>Created At</th>
+
 
                             <th>Action</th>
                         </tr>
                         </thead>
 
                         <tbody>
+                        @foreach($leagues as $l)
+                            <tr>
+                                <td>{{$l->season_name}}</td>
+                                <td>{{$l->teams}}</td>
+                                <td>{{$l->players}}</td>
+                                 <td><a href="" class="btn btn-sm btn-outline-success">View Stats</a></td>
+                            </tr>
+
+                        @endforeach
 
 
                         </tbody>
