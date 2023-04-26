@@ -26,6 +26,7 @@ Route::group(["middleware"=>["auth"]],function (){
     Route::group(["prefix"=>"/league"],function (){
         Route::get("/schedule",[LeagueController::class,"schedule"]);
         Route::get("/detail/{id}",[LeagueController::class,"matchdetail"]);
+        Route::post("/detail/{id}",[LeagueController::class,"postMatchDetail"]);
         Route::get("/reschedule/{id}",[LeagueController::class,"reschedule"]);
         Route::post("/reschedule/{id}",[LeagueController::class,"postReschedule"]);
         Route::get("/table",[LeagueController::class,"table"]);

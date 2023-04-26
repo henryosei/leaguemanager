@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\League;
+use App\Models\MatchResult;
+use App\Models\Player;
 use App\Models\Season;
 use App\Models\SeasonSchedule;
 use App\Models\SeasonTeamPlayers;
@@ -21,7 +23,24 @@ class LeagueController extends Controller
     public function matchdetail($id)
     {
         $match=SeasonSchedule::matchDetails($id);
-        return view("league.matchdetails");
+        $goals=MatchResult::goals();
+
+
+        $players=Player::all();
+        if (count($match)){
+            $details=MatchResult::goalDetails($match[0]->id);
+            dd($details);
+            return view("league.matchdetails",["match"=>$match[0],"players"=>$players,"goals"=>$goals]);
+        }
+
+    }
+
+    public function postMatchDetail($id, Request $request)
+    {
+        MatchResult::create(["match_id"=>$request->match_id, "team_id"=>$request->team_id,
+            "player_id"=>$request->team_id, "stat_type"=>"G", "time_scored"=>date("h:i",strtotime($request->time_scored))]);
+        //dd($request->input());
+        return redirect()->back();
     }
 
     public function table()
