@@ -26,7 +26,7 @@ class SeasonSchedule extends Model
             ->join("teams as t1","t1.id","=","s.home_team_id")
             ->join("teams as t2","t2.id","=","s.away_team_id")->where(["s.uuid"=>$id])
             ->select("t1.team_name as home_team","t2.team_name as away_team",
-                "t1.id as home_id","t2.id as away_id","s.id")->get();
+                "t1.id as home_id","t2.id as away_id","s.id","s.match_status")->get();
     }
 
     protected static function boot()

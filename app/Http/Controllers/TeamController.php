@@ -22,8 +22,8 @@ class TeamController extends Controller
     public function postCreateTeamPlayer(Request $request, $id)
     {
         $team_id = Team::where("uuid", $id)->get("id");
-        $request->file("team_logo")->move("images");
-        dd($request->file("player_picture"));
+       /* $request->file("player_picture")->move("images");
+        dd($request->file("player_picture"));*/
         Player::create(["full_name" => $request->player_name, "position" => $request->position, "team_id" => $team_id[0]->id]);
         return redirect("/system/teams/detail/" . $id)->with(["success" => "Player created successfully"]);
     }
@@ -47,13 +47,13 @@ class TeamController extends Controller
             "team_name" => "required",
             "coach" => "required|unique:teams,coach_name",
         ]);
-        $request->file("team_logo")->storeAs("images",$request->file("team_logo")
-            ->getClientOriginalName(),'public');
+       /* $request->file("team_logo")->storeAs("images",$request->file("team_logo")
+            ->getClientOriginalName(),'public');*/
 
 
         Team::create(["team_name" => $request->team_name,
-            "coach_name" => $request->coach,"team_logo"=>"/storage/images"+$request->file("team_logo") ->getClientOriginalName()]);
-        dd($request->file("team_logo"));
+            "coach_name" => $request->coach,"team_logo"=>"/storage/images"/*+$request->file("team_logo") ->getClientOriginalName()*/]);
+
         return redirect("/system/teams")->with(["success" => "Team created successfully"]);
     }
 

@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 @csrf
                                 <label for="exampleFormControlSelect1">Team Logo</label>
-                                <input class="form-control" required type="file" accept="image/jpeg" name="team_logo">
+                                <input class="form-control" type="file" accept="image/jpeg" name="team_logo">
                             </div>
                         </div>
                         <div class="col-md-12">

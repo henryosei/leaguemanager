@@ -41,7 +41,7 @@
                             <div class="form-group">
                                 @csrf
                                 <label for="exampleFormControlSelect1">Player Picture</label>
-                                <input class="form-control" required type="file" accept="image/jpeg" name="player_picture">
+                                <input class="form-control"  type="file" accept="image/jpeg" name="player_picture">
                             </div>
                         </div>
                         <div class="col-md-12">

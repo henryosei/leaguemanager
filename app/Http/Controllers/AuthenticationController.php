@@ -30,7 +30,7 @@ class AuthenticationController extends Controller
 
 
         if ($this->service->authenticate($request)) {
-            return redirect("/");
+            return redirect("/dashboard");
         }
         return redirect()->back()->with(["message" => "Invalid username or password"]);
     }
@@ -38,6 +38,6 @@ class AuthenticationController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect("/login");
+        return redirect("/schedule/users");
     }
 }

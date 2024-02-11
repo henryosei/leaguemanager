@@ -19,13 +19,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/login",[AuthenticationController::class,"login"])->name("login");
 Route::post("/login",[AuthenticationController::class,"authentication"]);
-
+Route::get("/schedule/users",[LeagueController::class,"scheduleForUsers"]);
+Route::get("/fixture",[LeagueController::class,"scheduleForUsers"]);
+Route::get("/",[LeagueController::class,"leagueTable"]);
+Route::get("/schedule/fixtures",[LeagueController::class,"scheduleForUsers"]);
 Route::group(["middleware"=>["auth"]],function (){
-    Route::get("/",[DashboardController::class,"dashboard"]);
+    Route::get("/dashboard",[DashboardController::class,"dashboard"]);
     Route::get("/logout",[AuthenticationController::class,"logout"]);
     Route::group(["prefix"=>"/league"],function (){
         Route::get("/schedule",[LeagueController::class,"schedule"]);
         Route::get("/detail/{id}",[LeagueController::class,"matchdetail"]);
+        Route::post("/detail/{id}",[LeagueController::class,"postmatchdetail"]);
+        Route::get("/detail/{id}/start",[LeagueController::class,"startmatch"]);
+        Route::get("/detail/{id}/end",[LeagueController::class,"endmatch"]);
         Route::post("/detail/{id}",[LeagueController::class,"postMatchDetail"]);
         Route::get("/reschedule/{id}",[LeagueController::class,"reschedule"]);
         Route::post("/reschedule/{id}",[LeagueController::class,"postReschedule"]);

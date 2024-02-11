@@ -4,8 +4,17 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Match day <a href="" class="btn btn-danger btn-sm">Mark as finished</a></h1>
+
+        <h1 class="h3 mb-2 text-gray-800">Match day @if($match->match_status=='PENDING')
+                <a href="/league/detail/{{request()->id}}/start" class="btn btn-success btn-sm">Start match</a>
+            @elseif($match->match_status=='STARTED')
+                <a href="" class="btn btn-primary btn-sm">Match ongoing</a>
+                <a href="/league/detail/{{request()->id}}/end" class="btn btn-danger btn-sm">Mark as completed</a>
+            @else
+                <a href="#" class="btn btn-success btn-sm">Match Completed</a>
+            @endif</h1>
         <p class="mb-4">
+
 
         </p>
 
@@ -24,11 +33,20 @@
 
                             <div class="row">
                                 <span style="font-size: 50px">
-                                    @if($match->home_id==$goals[1]->id)
-                                        {{$goals[0]->goals}}
+                                    @if(count($details)==0)
+                                        0
+                                    @else
+                                            <?php $home = 0 ?>
+                                        @foreach($details as $d)
+                                            @if($d->team_id==$match->home_id)
+                                                    <?php $home++; ?>
+                                            @endif
+                                        @endforeach
+                                        {{$home}}
                                     @endif
                                </span>
                                 <div class="col-md-12">
+                                    <input type="hidden" name="ground" value="home">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -53,9 +71,19 @@
                                 </div>
 
                             </div>
-                            <input class="form-control btn btn-primary" value="Record goal" type="submit">
-                            <input name="match_id" value="{{$match->id}}" type="hidden">
-                            <input name="team_id" value="{{$match->home_id}}" type="hidden">
+                            @if($match->match_status=='STARTED')
+                                <input class="form-control btn btn-primary" value="Record goal" type="submit">
+                                <input name="match_id" value="{{$match->id}}" type="hidden">
+                                <input name="team_id" value="{{$match->home_id}}" type="hidden">
+                                <ol>
+
+                                    @foreach($details as $d)
+                                        @if($d->team_id==$match->home_id)
+                                            <li>{{$d->full_name}}: {{$d->time_scored}}</li>
+                                        @endif
+                                    @endforeach
+                                </ol>
+                            @endif
 
                             <br>
                         </form>
@@ -72,16 +100,25 @@
                     <div class="card-body">
                         <form method="post" action="">
                             @csrf
-                            <label for="exampleFormControlSelect1"><b>Away team</b>: {{$match->home_team}}</label>
+                            <label for="exampleFormControlSelect1"><b>Away team</b>: {{$match->away_team}}</label>
                             <div>
-                               <span style="font-size: 50px">
-                                    @if($match->away_id==$goals[0]->id)
-                                       {{$goals[1]->goals}}
+                               <span class="text-right" style="font-size: 50px;text-align: right">
+                                    @if(count($details)==0)
+                                       0
+                                   @else
+                                           <?php $count = 0 ?>
+                                       @foreach($details as $d)
+                                           @if($d->team_id==$match->away_id)
+                                                   <?php $count++; ?>
+                                           @endif
+                                       @endforeach
+                                       {{$count}}
                                    @endif
+                                   {{----}}
                                </span>
                             </div>
                             <div class="row">
-
+                                <input type="hidden" name="ground" value="home">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-6">
@@ -97,6 +134,7 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="exampleFormControlSelect1">Goal scored time</label>
@@ -107,9 +145,19 @@
                                 </div>
 
                             </div>
-                            <input name="match_id" value="{{$match->id}}" type="hidden">
-                            <input name="team_id" value="{{$match->away_id}}" type="hidden">
-                            <input class="form-control btn btn-primary" value="Record goal" type="submit">
+                            @if($match->match_status=='STARTED')
+                                <input name="match_id" value="{{$match->id}}" type="hidden">
+                                <input name="team_id" value="{{$match->away_id}}" type="hidden">
+                                <input class="form-control btn btn-primary" value="Record goal" type="submit">
+                                <ol>
+
+                                    @foreach($details as $d)
+                                        @if($d->team_id==$match->away_id)
+                                            <li>{{$d->full_name}}: {{date("G:h ",strtotime($d->time_scored))}}</li>
+                                        @endif
+                                    @endforeach
+                                </ol>
+                            @endif
 
 
                             <br>
